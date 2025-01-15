@@ -9,6 +9,8 @@
 ## Project Overview
 A cryptocurrency dashboard built with React, Redux, and TypeScript. This application fetches cryptocurrency data from the CoinGecko API and displays it in a customizable dashboard. It allows users to toggle between dark and light modes, export and import dashboard configurations, and modify the layout of displayed components.
 
+Note: Double Click and then hold on the component to drag and drop the component.
+
 ## Table of Contents
 
 - [Setup Instructions](#setup-instructions)
