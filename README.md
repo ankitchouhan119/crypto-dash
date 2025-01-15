@@ -1,46 +1,125 @@
-# Getting Started with Create React App
+# Crypto Dashboard
+[Live Demo](https://crypto-dash-mu.vercel.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Watch the demo video](https://www.loom.com/share/6cd25fa6350a4b19a1a2635cd0864afe?sid=34186754-b44b-4ceb-87ac-649a35e74e0f)
 
-## Available Scripts
+![image](image.png)
+![image](image-1.png)
 
-In the project directory, you can run:
+## Project Overview
+A cryptocurrency dashboard built with React, Redux, and TypeScript. This application fetches cryptocurrency data from the CoinGecko API and displays it in a customizable dashboard. It allows users to toggle between dark and light modes, export and import dashboard configurations, and modify the layout of displayed components.
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Setup Instructions](#setup-instructions)
+- [Overview](#overview)
+  - [Component Structure](#component-structure)
+  - [State Management](#state-management)
+  - [Data Handling](#data-handling)
+  - [Layout Logic](#layout-logic)
+- [Features](#features)
+- [Limitations](#limitations)
+- [Notable Decisions](#notable-decisions)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Setup Instructions
+### Prerequisites
+Before you begin, make sure you have:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (LTS version)
+- npm 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone https://github.com/ankitchouhan119/crypto-dash.git
+    cd crypto-dash
+    ```
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the Development Server
+    ```bash
+    npm start
+    ```
+    Open the app at `http://localhost:3000` in your browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## Technologies Used
+- **React**
+- **Tailwind CSS**
+- **Redux Toolkit**
+- **Axios**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+---
+
+## Overview
+### Component Structure
+
+    /
+    ├── src/
+    │   ├── components/ 
+    │   │     ├── AddComponentButton.tsx                    
+    │   │     ├── Dashboard.tsx                    
+    │   │     ├── Graph.tsx                    
+    │   │     ├── SummaryCard.tsx                    
+    │   │     ├── Table.tsx                    
+    │   ├── hooks/
+    │   │     ├── useAppSelector.ts   
+    │   ├── store/
+    │   │     ├── cryptoSlice.ts            
+    │   │     ├── layoutSlice.ts            
+    │   │     ├── store.ts            
+    │   │     ├── themeSlice.ts            
+    │                  
+    └── ...
+
+### State Management
+State management is handled using Redux Toolkit.
+ - `cryptoSlice.ts`:  Stores cryptocurrency data and manages API request status ( `loading`, `succeeded`, `failed` ). It fetches data using `createAsyncThunk`.
+ - `layoutSlice.ts`:  Manages the layout of components (position, size, etc.). It includes actions to add, update, or remove components in the dashboard layout.
+ - `themeSlice.ts`:  Manages the dark/light theme state. It toggles the theme whenever the user interacts with the UI.
+
+### Data Handling
+The cryptocurrency data is fetched using Axios from the CoinGecko API. The app fetches data for cryptocurrency markets in USD. This data is managed by Redux as part of the cryptoSlice state.
+
+- **Fetching Data**: The `createAsyncThunk` API from Redux Toolkit is used to manage asynchronous data fetching. The app makes a GET request to the CoinGecko API for cryptocurrency market data.
+- **Error Handling**: When data fetching fails, the app manages errors using Redux's `rejected` state in the `cryptoSlice`.
+
+### Layout Logic
+The layout logic is managed through Redux state stored in `layoutSlice.ts`. Each component's position and size are stored as an array of layout objects (`LayoutItem`).
+
+Users can add, remove, or update these components through actions such as `addComponent`, `removeComponent`, and `updateLayout`. The layout configuration is exported and imported as a JSON file for persistence.
+
+## Features
+- **Dark Mode / Light Mode**: Users can toggle between dark and light themes using a button in the navbar.
+- **Export Dashboard Configuration**: Users can export the current layout configuration and theme settings into a JSON file.
+- **Import Dashboard Configuration**: Users can import previously exported configuration JSON files to restore their layout and theme.
+- **Dynamic Cryptocurrency Data**: The app fetches real-time data from the CoinGecko API and displays it for various cryptocurrencies.
+- **Responsive Layout**: The layout of components can be customized, allowing users to rearrange widgets or cards within the dashboard.
+
+## Limitations
+- **Limited API Support**: Currently, only one API endpoint (for cryptocurrency markets) is supported.
+- **Basic Error Handling**: There's minimal error handling for scenarios such as failed API requests or invalid configuration files during import.
+
+
+## Notable Decisions
+- **Redux Toolkit**: Used Redux Toolkit for state management due to its simplicity and built-in features like `createSlice` and `createAsyncThunk`. This reduces boilerplate and enhances developer productivity.
+- **Component Layout Management**: Layout state is stored as an array of objects where each object represents a component's position and size. This allows for flexible and dynamic management of components.
+- **Dark Mode**: The theme state is directly managed in Redux, allowing for centralized control of theme preferences.
+- **JSON Export/Import**: Implemented file-based export/import functionality to persist layout and theme configurations. This enables users to share or restore their dashboard settings.
+
+
+
+
